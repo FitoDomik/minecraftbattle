@@ -1,0 +1,60 @@
+# Robots.txt для Minecraft Battle Server
+# Domain: https://minecraftbattle.ru
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin.php
+Disallow: /api.php
+Disallow: /config.php
+Disallow: /database.sql
+Disallow: /logs/
+Disallow: /temp/
+Disallow: /backups/
+Disallow: /*.log$
+Disallow: /*.sql$
+Disallow: /*.bak$
+Disallow: /*?*action=*
+Disallow: /*?*captcha*
+# Разрешаем доступ к важным файлам
+Allow: /index_improved.html
+Allow: /coreprotect_commands.html
+Allow: /simpleclans_commands.html
+Allow: /download.html
+Allow: /tlauncher-download.php
+Allow: /TLauncher-Installer.exe
+Allow: /sitemap.xml
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api.php
+Crawl-delay: 1
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api.php
+Crawl-delay: 2
+User-agent: YandexBot
+Allow: /
+Disallow: /admin/
+Disallow: /api.php
+Crawl-delay: 2
+# Блокируем агрессивных ботов
+User-agent: AhrefsBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+# Карта сайта
+Sitemap: https://minecraftbattle.ru/sitemap.xml
+# Хост (будет активен после SSL)
+Host: minecraftbattle.ru

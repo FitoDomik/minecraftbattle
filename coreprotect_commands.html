@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ CoreProtect - Команды для игроков | Minecraft Battle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23654321"/><rect x="0" y="0" width="50" height="50" fill="%23543210"/><rect x="50" y="50" width="50" height="50" fill="%23543210"/></svg>');
+            background-size: 64px 64px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .back-home {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(145deg, #FFD700, #B8860B);
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+        }
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+        .header h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #00AA00;
+            text-shadow: 4px 4px 0px #006600, 8px 8px 20px rgba(0, 170, 0, 0.5);
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #CCCCCC;
+            margin-bottom: 10px;
+        }
+        @keyframes glow {
+            from { text-shadow: 4px 4px 0px #006600, 8px 8px 20px rgba(0, 170, 0, 0.5); }
+            to { text-shadow: 4px 4px 0px #006600, 8px 8px 30px rgba(0, 170, 0, 0.8); }
+        }
+        .main-content {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00AA00;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 170, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out;
+        }
+        .info-card {
+            background: rgba(255, 152, 0, 0.1);
+            border: 2px solid #FF9800;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .info-card h3 {
+            font-family: 'Press Start 2P', monospace;
+            color: #FF9800;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .info-card p {
+            color: #FFCCBC;
+            line-height: 1.6;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555555;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .section h2 {
+            font-family: 'Press Start 2P', monospace;
+            color: #FFD700;
+            border-bottom: 3px solid #00AA00;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 0px #B8860B;
+        }
+        .command-grid {
+            display: grid;
+            gap: 15px;
+        }
+        .command-item {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #555555;
+            border-left: 4px solid #00AA00;
+            transition: all 0.3s ease;
+        }
+        .command-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 170, 0, 0.2);
+            border-color: #00AA00;
+        }
+        .command-syntax {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00AA00;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+            position: relative;
+            overflow-x: auto;
+            border: 1px solid #00AA00;
+            box-shadow: 0 0 10px rgba(0, 170, 0, 0.2);
+        }
+        .command-syntax::before {
+            content: '⚡';
+            color: #FFD700;
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+        .description {
+            color: #CCCCCC;
+            margin-bottom: 15px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .example {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555555;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 15px;
+            border-left: 4px solid #FFD700;
+        }
+        .example-title {
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 0px #B8860B;
+        }
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #555555;
+        }
+        .parameter-table th,
+        .parameter-table td {
+            padding: 15px 18px;
+            text-align: left;
+            border-bottom: 1px solid #555555;
+        }
+        .parameter-table th {
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+        .parameter-table tr:hover {
+            background: rgba(0, 170, 0, 0.1);
+        }
+        .parameter-table td {
+            color: #CCCCCC;
+        }
+        .parameter-table code {
+            background: rgba(0, 0, 0, 0.8);
+            color: #00AA00;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .warning {
+            background: rgba(255, 87, 34, 0.15);
+            border: 2px solid #FF5722;
+            color: #FFCCBC;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #FF5722;
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.2);
+        }
+        .tip {
+            background: rgba(33, 150, 243, 0.15);
+            border: 2px solid #2196F3;
+            color: #BBDEFB;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-home">🏠 На главную</a>
+        <div class="header">
+            <h1>🛡️ CoreProtect для игроков</h1>
+            <p>Команды системы защиты, доступные обычным игроками</p>
+        </div>
+        <div class="main-content">
+            <div class="info-card">
+                <h3>ℹ️ Что такое CoreProtect?</h3>
+                <p>
+                    CoreProtect - это система защиты сервера, которая записывает все действия игроков. 
+                    Обычные игроки могут использовать только команду инспектора для проверки блоков.
+                    Остальные команды доступны только администраторам.
+                </p>
+            </div>
+            <section class="section">
+                <h2>🔍 Доступные команды для игроков</h2>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-syntax">/co inspect</div>
+                        <div class="description">Включает/выключает режим инспектора для проверки блоков</div>
+                        <div class="example">
+                            <div class="example-title">Как использовать:</div>
+                            1. Введите команду <code>/co inspect</code><br>
+                            2. Кликните правой кнопкой мыши по блоку<br>
+                            3. Увидите историю взаимодействий с блоком<br>
+                            4. Введите команду еще раз чтобы выключить режим
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <h2>📖 Что показывает инспектор</h2>
+                <div class="command-item">
+                    <div class="description">
+                        Режим инспектора показывает информацию о блоке:
+                    </div>
+                    <ul style="color: #CCCCCC; margin: 15px 0 15px 20px; line-height: 1.8;">
+                        <li>🔨 <strong>Кто поставил/сломал блок</strong> - никнейм игрока</li>
+                        <li>⏰ <strong>Когда это произошло</strong> - точное время действия</li>
+                        <li>📦 <strong>Что это был за блок</strong> - тип материала</li>
+                        <li>🌍 <strong>Координаты</strong> - точное местоположение</li>
+                    </ul>
+                    <div class="example">
+                        <div class="example-title">Пример результата:</div>
+                        <div style="font-family: 'Courier New', monospace; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 8px; color: #00AA00;">
+                            --- CoreProtect --- (x128/y64/z237)<br>
+                            0.5 hours ago - Steve placed stone<br>
+                            1.2 hours ago - Alex removed dirt<br>
+                            3.1 hours ago - Notch placed dirt
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <h2>❓ Часто задаваемые вопросы</h2>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="description">
+                            Обычные игроки не могут использовать команды отката. 
+                            Обратитесь к администратору сервера с доказательствами.
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="description">
+                            История хранится согласно настройкам сервера. 
+                            Обычно это от нескольких недель до месяца.
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="description">
+                            Инспектор показывает историю взаимодействий с контейнерами 
+                            (сундуки, печки, бочки и т.д.).
+                        </div>
+                    </div>
+                    <div class="command-item">
+                        <div class="description">
+                            CoreProtect записывает разрушения от взрывов криперов, 
+                            эндерменов и других мобов.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="tip">
+                🛡️ <strong>Совет:</strong> Используйте инспектор для проверки подозрительных мест. 
+                Если обнаружите грифинг, сделайте скриншот и обратитесь к администраторам!
+            </div>
+            <div class="warning">
+                ⚠️ <strong>Важно:</strong> Не спамьте командой /co inspect. 
+                Включайте режим только когда нужно что-то проверить.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

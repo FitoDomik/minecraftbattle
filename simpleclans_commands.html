@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 SimpleClans - Команды для игроков | Minecraft Battle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23654321"/><rect x="0" y="0" width="50" height="50" fill="%23543210"/><rect x="50" y="50" width="50" height="50" fill="%23543210"/></svg>');
+            background-size: 64px 64px;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+        h1 {
+            font-family: 'Press Start 2P', monospace;
+            color: #00AA00;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 15px;
+            text-shadow: 4px 4px 0px #006600, 8px 8px 20px rgba(0, 170, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        .subtitle {
+            color: #CCCCCC;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        @keyframes glow {
+            from { text-shadow: 4px 4px 0px #006600, 8px 8px 20px rgba(0, 170, 0, 0.5); }
+            to { text-shadow: 4px 4px 0px #006600, 8px 8px 30px rgba(0, 170, 0, 0.8); }
+        }
+        .back-home {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(145deg, #FFD700, #B8860B);
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+        }
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4);
+        }
+        .search-container {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00AA00;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(0, 170, 0, 0.3);
+        }
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #555555;
+            border-radius: 10px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #00AA00;
+            box-shadow: 0 0 15px rgba(0, 170, 0, 0.3);
+        }
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 12px 20px;
+            border: 2px solid #555555;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #CCCCCC;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover {
+            background: rgba(0, 170, 0, 0.2);
+            border-color: #00AA00;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .filter-btn.active {
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            border-color: #00AA00;
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .command-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #555555;
+            border-left: 5px solid #00AA00;
+        }
+        .command-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 170, 0, 0.2);
+            border-color: #00AA00;
+        }
+        .command-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .command-category {
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .command-syntax {
+            background: rgba(0, 0, 0, 0.8);
+            color: #00AA00;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border: 1px solid #00AA00;
+            border-left: 4px solid #FFD700;
+            font-size: 0.9em;
+            box-shadow: 0 0 10px rgba(0, 170, 0, 0.2);
+        }
+        .command-description {
+            color: #CCCCCC;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.2em;
+        }
+        .stats {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            padding: 18px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .filters {
+                justify-content: center;
+            }
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-home">🏠 На главную</a>
+        <header>
+            <h1>🏰 SimpleClans - Команды для игроков</h1>
+            <p class="subtitle">Система кланов на сервере Minecraft Battle</p>
+        </header>
+        <div class="stats">
+            <span id="stats-text">Всего команд: 24</span>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="🔍 Поиск команд... (например: create, invite, chat)">
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">Все команды</button>
+                <button class="filter-btn" data-category="basic">Основные</button>
+                <button class="filter-btn" data-category="management">Управление</button>
+                <button class="filter-btn" data-category="social">Общение</button>
+                <button class="filter-btn" data-category="war">PvP</button>
+            </div>
+        </div>
+        <div class="commands-grid" id="commandsGrid">
+            <!-- Команды будут добавлены через JavaScript -->
+        </div>
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>🔍 Команды не найдены</h3>
+            <p>Попробуйте изменить поисковый запрос или выбрать другую категорию</p>
+        </div>
+    </div>
+    <script>
+        const commands = [
+            // Основные команды
+            {
+                category: 'basic',
+                title: '/clan create',
+                syntax: '/clan create <название>',
+                description: 'Создать новый клан с указанным названием. Вы станете лидером клана.'
+            },
+            {
+                category: 'basic',
+                title: '/clan info',
+                syntax: '/clan info [клан]',
+                description: 'Показать информацию о вашем клане или указанном клане.'
+            },
+            {
+                category: 'basic',
+                title: '/clan list',
+                syntax: '/clan list [страница]',
+                description: 'Показать список всех кланов на сервере с пагинацией.'
+            },
+            {
+                category: 'basic',
+                title: '/clan lookup',
+                syntax: '/clan lookup <клан/игрок>',
+                description: 'Показать подробную информацию о клане или найти клан игрока.'
+            },
+            {
+                category: 'basic',
+                title: '/clan profile',
+                syntax: '/clan profile [игрок]',
+                description: 'Показать профиль игрока с информацией о клане.'
+            },
+            {
+                category: 'basic',
+                title: '/clan roster',
+                syntax: '/clan roster [клан]',
+                description: 'Показать список участников клана.'
+            },
+            {
+                category: 'basic',
+                title: '/clan online',
+                syntax: '/clan online',
+                description: 'Показать онлайн участников вашего клана.'
+            },
+            {
+                category: 'basic',
+                title: '/clan top',
+                syntax: '/clan top [kdr|size|kills]',
+                description: 'Показать топ кланов по различным критериям.'
+            },
+            // Управление кланом
+            {
+                category: 'management',
+                title: '/clan invite',
+                syntax: '/clan invite <игрок>',
+                description: 'Пригласить игрока в ваш клан. Только лидеры и помощники могут приглашать.'
+            },
+            {
+                category: 'management',
+                title: '/clan accept',
+                syntax: '/clan accept',
+                description: 'Принять приглашение в клан.'
+            },
+            {
+                category: 'management',
+                title: '/clan deny',
+                syntax: '/clan deny',
+                description: 'Отклонить приглашение в клан.'
+            },
+            {
+                category: 'management',
+                title: '/clan leave',
+                syntax: '/clan leave',
+                description: 'Покинуть текущий клан. Лидер должен передать лидерство или распустить клан.'
+            },
+            {
+                category: 'management',
+                title: '/clan kick',
+                syntax: '/clan kick <игрок>',
+                description: 'Исключить игрока из клана. Доступно только лидерам и помощникам.'
+            },
+            {
+                category: 'management',
+                title: '/clan promote',
+                syntax: '/clan promote <игрок>',
+                description: 'Повысить участника клана до помощника лидера.'
+            },
+            {
+                category: 'management',
+                title: '/clan demote',
+                syntax: '/clan demote <игрок>',
+                description: 'Понизить помощника до обычного участника клана.'
+            },
+            {
+                category: 'management',
+                title: '/clan home',
+                syntax: '/clan home',
+                description: 'Телепортироваться в дом клана (если установлен).'
+            },
+            {
+                category: 'management',
+                title: '/clan sethome',
+                syntax: '/clan sethome',
+                description: 'Установить дом клана в текущем местоположении.'
+            },
+            {
+                category: 'management',
+                title: '/clan coords',
+                syntax: '/clan coords',
+                description: 'Показать координаты дома клана.'
+            },
+            // Общение
+            {
+                category: 'social',
+                title: '/clan chat',
+                syntax: '/clan chat [сообщение]',
+                description: 'Переключиться в чат клана или отправить сообщение в чат клана.'
+            },
+            {
+                category: 'social',
+                title: '/clan ally',
+                syntax: '/clan ally <клан>',
+                description: 'Предложить союз другому клану.'
+            },
+            {
+                category: 'social',
+                title: '/clan unally',
+                syntax: '/clan unally <клан>',
+                description: 'Разорвать союз с кланом.'
+            },
+            // PvP и война
+            {
+                category: 'war',
+                title: '/clan rival',
+                syntax: '/clan rival <клан>',
+                description: 'Добавить клан в соперники.'
+            },
+            {
+                category: 'war',
+                title: '/clan unrival',
+                syntax: '/clan unrival <клан>',
+                description: 'Убрать клан из соперников.'
+            },
+            {
+                category: 'war',
+                title: '/clan kills',
+                syntax: '/clan kills [игрок]',
+                description: 'Показать статистику убийств игрока или вашу.'
+            },
+            {
+                category: 'war',
+                title: '/clan deaths',
+                syntax: '/clan deaths [игрок]',
+                description: 'Показать статистику смертей игрока или вашу.'
+            }
+        ];
+        const commandsGrid = document.getElementById('commandsGrid');
+        const searchBox = document.getElementById('searchBox');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const noResults = document.getElementById('noResults');
+        const statsText = document.getElementById('stats-text');
+        let currentFilter = 'all';
+        let searchQuery = '';
+        function getCategoryName(category) {
+            const names = {
+                'basic': 'Основные',
+                'management': 'Управление',
+                'social': 'Общение',
+                'war': 'PvP'
+            };
+            return names[category] || category;
+        }
+        function renderCommands() {
+            const filteredCommands = commands.filter(cmd => {
+                const matchesCategory = currentFilter === 'all' || cmd.category === currentFilter;
+                const matchesSearch = searchQuery === '' || 
+                    cmd.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    cmd.syntax.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+            if (filteredCommands.length === 0) {
+                commandsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                statsText.textContent = 'Команды не найдены';
+                return;
+            }
+            commandsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            statsText.textContent = `Показано команд: ${filteredCommands.length} из ${commands.length}`;
+            commandsGrid.innerHTML = filteredCommands.map(cmd => `
+                <div class="command-card">
+                    <div class="command-title">
+                        ${cmd.title}
+                        <span class="command-category">${getCategoryName(cmd.category)}</span>
+                    </div>
+                    <div class="command-syntax">${cmd.syntax}</div>
+                    <div class="command-description">${cmd.description}</div>
+                </div>
+            `).join('');
+        }
+        searchBox.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderCommands();
+        });
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.category;
+                renderCommands();
+            });
+        });
+        renderCommands();
+    </script>
+</body>
+</html>

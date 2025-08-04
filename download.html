@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скачать Minecraft | TLauncher | Minecraft Battle</title>
+    <meta name="description" content="Скачайте TLauncher для игры на сервере Minecraft Battle. Простая установка и настройка лаунчера.">
+    <meta name="keywords" content="tlauncher, minecraft, скачать, лаунчер, установка">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-green: #00AA00;
+            --dark-green: #007700;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --text-gray: #CCCCCC;
+            --danger: #FF5722;
+            --success: #4CAF50;
+            --bg-dark: #1a1a1a;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 170, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0F0F23 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text-gray);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-green);
+            opacity: 0.6;
+            animation: float 12s infinite linear;
+            border-radius: 1px;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+        .logo {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            text-shadow: 
+                3px 3px 0px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(0, 170, 0, 0.5);
+            margin-bottom: 15px;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes logoGlow {
+            0% { 
+                text-shadow: 
+                    3px 3px 0px rgba(0, 0, 0, 0.8),
+                    0 0 30px rgba(0, 170, 0, 0.5);
+            }
+            100% { 
+                text-shadow: 
+                    3px 3px 0px rgba(0, 0, 0, 0.8),
+                    0 0 40px rgba(0, 170, 0, 0.8);
+            }
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+        .download-card {
+            background: 
+                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0, 170, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: cardPulse 4s ease-in-out infinite;
+        }
+        @keyframes cardPulse {
+            0%, 100% { 
+                border-color: rgba(0, 170, 0, 0.3);
+                box-shadow: 
+                    0 20px 40px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+                border-color: rgba(0, 170, 0, 0.6);
+                box-shadow: 
+                    0 25px 50px rgba(0, 170, 0, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+        }
+        .download-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+        }
+        .tlauncher-info {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary-green);
+        }
+        .tlauncher-info h3 {
+            font-family: 'Press Start 2P', monospace;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .tlauncher-info p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .download-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px 40px;
+            background: linear-gradient(145deg, var(--success), #388E3C);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            font-family: 'Press Start 2P', monospace;
+            text-align: center;
+            box-shadow: 
+                0 10px 20px rgba(76, 175, 80, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 30px rgba(76, 175, 80, 0.6),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        }
+        .download-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .instructions h3 {
+            font-family: 'Press Start 2P', monospace;
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-green);
+            transition: all 0.3s ease;
+        }
+        .step:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+        .step-number {
+            font-family: 'Press Start 2P', monospace;
+            background: var(--primary-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        .step-description {
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+        .warning {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .warning-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .warning-text {
+            color: #FF9800;
+            font-weight: bold;
+        }
+        .server-info {
+            background: rgba(0, 170, 0, 0.1);
+            border: 1px solid rgba(0, 170, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .server-info h4 {
+            font-family: 'Press Start 2P', monospace;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .server-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .server-detail {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .detail-label {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            color: var(--primary-green);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.9rem;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(145deg, var(--gold), var(--dark-gold));
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .logo {
+                font-size: 2rem;
+            }
+            .download-card {
+                padding: 25px;
+            }
+            .download-title {
+                font-size: 1.4rem;
+            }
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            .step-number {
+                margin: 0 auto 10px auto;
+            }
+            .server-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">
+                <span aria-label="Кирка">⛏️</span> MINECRAFT BATTLE <span aria-label="Кирка">⛏️</span>
+            </h1>
+        </div>
+        <div class="download-card">
+            <h2 class="download-title">
+                <span aria-label="Ракета">🚀</span> Скачать TLauncher
+            </h2>
+            <div class="tlauncher-info">
+                <h3><span aria-label="Информация">ℹ️</span> Что такое TLauncher?</h3>
+                <p>
+                    <strong>TLauncher</strong> - это популярный лаунчер для Minecraft, который позволяет:
+                </p>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>✅ Играть в Minecraft бесплатно</li>
+                    <li>✅ Подключаться к любым серверам</li>
+                    <li>✅ Устанавливать моды и текстуры</li>
+                    <li>✅ Выбирать любую версию игры</li>
+                    <li>✅ Безопасность и стабильность</li>
+                </ul>
+            </div>
+            <a href="/tlauncher-download.php" 
+               class="download-btn" 
+               id="downloadBtn"
+               download="TLauncher-Installer.exe"
+               aria-label="Скачать TLauncher установщик">
+                <span aria-label="Загрузка">📦</span> Скачать TLauncher-Installer.exe
+            </a>
+        </div>
+        <div class="instructions">
+            <h3><span aria-label="Руководство">📋</span> Пошаговая инструкция</h3>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Скачайте файл</div>
+                    <div class="step-description">
+                        Нажмите кнопку выше для скачивания файла <strong>TLauncher-Installer.exe</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Откройте файл</div>
+                    <div class="step-description">
+                        Найдите скачанный файл в папке "Загрузки" и запустите его двойным кликом
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Установите лаунчер</div>
+                    <div class="step-description">
+                        Следуйте инструкциям установщика. Выберите папку установки и нажмите "Установить"
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">Запустите TLauncher</div>
+                    <div class="step-description">
+                        После установки запустите TLauncher с рабочего стола или из меню "Пуск"
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Создайте аккаунт</div>
+                    <div class="step-description">
+                        В лаунчере создайте новый аккаунт или используйте существующий никнейм
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Выберите версию</div>
+                    <div class="step-description">
+                        Установите версию Minecraft <strong>1.16.1</strong> для игры на нашем сервере
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <div class="step-title">Подключитесь к серверу</div>
+                    <div class="step-description">
+                        В игре добавьте наш сервер с IP:
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="/" class="back-btn" aria-label="Вернуться на главную страницу">
+                <span aria-label="Дом">🏠</span> На главную
+            </a>
+        </div>
+    </div>
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#00AA00', '#FFD700', '#FF5722', '#2196F3'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            showNotification('📦 Начинается скачивание TLauncher...', 'success');
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="loading"></span> Скачивание...';
+            btn.style.pointerEvents = 'none';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = 'auto';
+                showNotification('✅ Файл скачан! Откройте его и следуйте инструкции.', 'success');
+            }, 3000);
+        });
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #4CAF50, #388E3C)' : 'linear-gradient(135deg, #f44336, #d32f2f)'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-weight: bold;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+                font-family: 'Roboto', sans-serif;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.tagName === 'A') {
+                e.target.click();
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: 'Download TLauncher',
+                page_location: window.location.href
+            });
+        }
+    </script>
+</body>
+</html>
